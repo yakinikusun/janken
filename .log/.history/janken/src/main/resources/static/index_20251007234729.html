@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Janken</title>
+</head>
+
+<body>
+  複数の値を処理してみよう
+  <p>
+    数字を2つ入れてみよう
+  <form action="/sample26" method="post">
+    最小値：<input type="number" name="min" />
+    最大値：<input type="number" name="max" />
+    <input type="submit" value="計算"><input type="reset" value="リセット">
+  </form>
+
+  <div>
+    以下の数字をすべて加算すると(Thymeleafのfor-each)<br>
+    <!-- sumRangeに配列として数値が入っている
+        for each文としてすべての数値を表示する-->
+    <span th:each="num:${sumRange}">
+      [[${num}]]
+    </span>
+    <div>
+      [[${sum}]]
+    </div>
+  </div>
+  </p>
+
+  <p>
+    数字を3つ入れてみよう
+    <!-- /sample26/ave にpostでアクセスするフォーム-->
+  <form action="/sample26/ave" method="post">
+    <input type="number" name="num1" />
+    <input type="number" name="num2" />
+    <input type="number" name="num3" />
+    <input type="submit" value="計算"><input type="reset" value="リセット">
+  </form>
+  </p>
+
+  <!--score変数が渡された場合のみdivタグの中身を表示する-->
+
+</body>
+
+</html>
