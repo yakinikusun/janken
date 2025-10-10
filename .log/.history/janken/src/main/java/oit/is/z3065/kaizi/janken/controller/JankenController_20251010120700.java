@@ -33,7 +33,7 @@ public class JankenController {
   public String guu(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
-    janken.buttle("グー", CPU_hand());
+    janken.buttle("グー", "グー");
     model.addAttribute("janken", janken);
 
     return "janken.html";
@@ -43,7 +43,7 @@ public class JankenController {
   public String tyoki(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
-    janken.buttle("チョキ", CPU_hand());
+    janken.buttle("チョキ", "グー");
     model.addAttribute("janken", janken);
     return "janken.html";
   }
@@ -52,7 +52,7 @@ public class JankenController {
   public String paa(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
-    janken.buttle("パー", CPU_hand());
+    janken.buttle("パー", "グー");
     model.addAttribute("janken", janken);
 
     return "janken.html";
@@ -61,11 +61,11 @@ public class JankenController {
   public String CPU_hand() {
     Random random = new Random();
     int n = random.nextInt(3);
-    if (n == 0) {
+    if (n==0) {
       return "グー";
     } else if (n == 1) {
       return "チョキ";
     }
-    return "パー";
+    return "パー"
   }
 }
