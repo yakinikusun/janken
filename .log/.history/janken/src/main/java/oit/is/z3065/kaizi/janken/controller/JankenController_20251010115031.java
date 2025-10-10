@@ -13,46 +13,46 @@ import oit.is.z3065.kaizi.janken.model.Janken;
 @RequestMapping("/janken")
 public class JankenController {
 
-  Janken janken = new Janken();
+  Janken janken;
 
   @GetMapping
   public String janken() {
+    janken = new Janken();
     return "janken.html";
   }
 
   @PostMapping
   public String janken_name(@RequestParam String ID, ModelMap model) {
-    janken.set_id(ID);
+    janken = new Janken(ID);
     model.addAttribute("ID", janken.getID());
     return "janken.html";
   }
 
   @PostMapping("gu")
   public String guu(ModelMap model) {
-    if (!janken.getID().isEmpty())
-      model.addAttribute("ID", janken.getID());
     janken.buttle("グー", "グー");
     model.addAttribute("janken", janken);
+    if (!janken.getID().isEmpty())
+      model.addAttribute("ID", janken.getID());
 
     return "janken.html";
   }
 
   @PostMapping("tyo")
   public String tyoki(ModelMap model) {
-    if (!janken.getID().isEmpty())
-      model.addAttribute("ID", janken.getID());
     janken.buttle("チョキ", "グー");
     model.addAttribute("janken", janken);
+    if (!janken.getID().isEmpty())
+      model.addAttribute("ID", janken.getID());
     return "janken.html";
   }
 
   @PostMapping("pa")
   public String paa(ModelMap model) {
-    if (!janken.getID().isEmpty())
-      model.addAttribute("ID", janken.getID());
     janken.buttle("パー", "グー");
     model.addAttribute("janken", janken);
-
+    if (!janken.getID().isEmpty())
+      model.addAttribute("ID", janken.getID());
     return "janken.html";
   }
 }

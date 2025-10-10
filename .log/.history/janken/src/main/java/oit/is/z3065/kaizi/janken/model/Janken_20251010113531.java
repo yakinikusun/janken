@@ -2,13 +2,18 @@ package oit.is.z3065.kaizi.janken.model;
 
 public class Janken {
 
-  String id = "";
+  String id;
   String player;
   String computer;
   String result;
 
   public Janken() {
 
+  }
+
+  public Janken(String id) {
+    this();
+    this.id = id;
   }
 
   public void buttle(String player, String computer) {
@@ -22,14 +27,6 @@ public class Janken {
     } else {
       this.result = "あなたの負け";
     }
-  }
-
-  public void set_id(String id) {
-    this.id = id;
-  }
-
-  public String getID() {
-    return id;
   }
 
   public String getPlayer() {

@@ -50,6 +50,8 @@ public class JankenController {
   public String paa(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
+    else
+      janken = new Janken();
     janken.buttle("パー", "グー");
     model.addAttribute("janken", janken);
 

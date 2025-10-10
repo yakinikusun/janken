@@ -2,7 +2,7 @@ package oit.is.z3065.kaizi.janken.model;
 
 public class Janken {
 
-  String id = "";
+  String id;
   String player;
   String computer;
   String result;

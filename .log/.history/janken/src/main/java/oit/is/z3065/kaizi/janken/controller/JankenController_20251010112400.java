@@ -13,7 +13,7 @@ import oit.is.z3065.kaizi.janken.model.Janken;
 @RequestMapping("/janken")
 public class JankenController {
 
-  Janken janken = new Janken();
+  Janken janken
 
   @GetMapping
   public String janken() {
@@ -22,37 +22,28 @@ public class JankenController {
 
   @PostMapping
   public String janken_name(@RequestParam String ID, ModelMap model) {
-    janken.set_id(ID);
-    model.addAttribute("ID", janken.getID());
+    model.addAttribute("ID", ID);
     return "janken.html";
   }
 
   @PostMapping("gu")
   public String guu(ModelMap model) {
-    if (!janken.getID().isEmpty())
-      model.addAttribute("ID", janken.getID());
-    janken.buttle("グー", "グー");
+    Janken janken = new Janken("グー", "グー");
     model.addAttribute("janken", janken);
-
     return "janken.html";
   }
 
   @PostMapping("tyo")
   public String tyoki(ModelMap model) {
-    if (!janken.getID().isEmpty())
-      model.addAttribute("ID", janken.getID());
-    janken.buttle("チョキ", "グー");
+    Janken janken = new Janken("チョキ", "グー");
     model.addAttribute("janken", janken);
     return "janken.html";
   }
 
   @PostMapping("pa")
   public String paa(ModelMap model) {
-    if (!janken.getID().isEmpty())
-      model.addAttribute("ID", janken.getID());
-    janken.buttle("パー", "グー");
+     = new Janken("パー", "グー");
     model.addAttribute("janken", janken);
-
     return "janken.html";
   }
 }

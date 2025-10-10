@@ -13,16 +13,17 @@ import oit.is.z3065.kaizi.janken.model.Janken;
 @RequestMapping("/janken")
 public class JankenController {
 
-  Janken janken = new Janken();
+  Janken janken;
 
   @GetMapping
   public String janken() {
+    janken = new Janken();
     return "janken.html";
   }
 
   @PostMapping
   public String janken_name(@RequestParam String ID, ModelMap model) {
-    janken.set_id(ID);
+    janken = new Janken(ID);
     model.addAttribute("ID", janken.getID());
     return "janken.html";
   }
@@ -31,6 +32,8 @@ public class JankenController {
   public String guu(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
+    else
+      janken = new Janken();
     janken.buttle("グー", "グー");
     model.addAttribute("janken", janken);
 
@@ -41,6 +44,8 @@ public class JankenController {
   public String tyoki(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
+    else
+      janken = new Janken();
     janken.buttle("チョキ", "グー");
     model.addAttribute("janken", janken);
     return "janken.html";
@@ -50,6 +55,8 @@ public class JankenController {
   public String paa(ModelMap model) {
     if (!janken.getID().isEmpty())
       model.addAttribute("ID", janken.getID());
+    else
+      janken = new Janken();
     janken.buttle("パー", "グー");
     model.addAttribute("janken", janken);
 
