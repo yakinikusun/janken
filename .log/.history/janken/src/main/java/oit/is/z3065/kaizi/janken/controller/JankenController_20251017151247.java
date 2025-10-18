@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.z3065.kaizi.janken.model.Janken;
 import oit.is.z3065.kaizi.janken.model.Entry;
@@ -23,21 +24,24 @@ public class JankenController {
   Janken janken = new Janken();
 
   @GetMapping
-  public String janken(Principal prin, ModelMap model) {
-    String loginUser = prin.getName();
+  public String janken() {
+    return "janken.html";
+  }
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
-
+  @PostMapping
+  public String janken_name(@RequestParam String ID, ModelMap model) {
+    janken.set_id(ID);
+    model.addAttribute("ID", janken.getID());
     return "janken.html";
   }
 
   @PostMapping("gu")
-  public String guu(Principal prin, ModelMap model) {
+  public String guu(ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("グー", CPU_hand());
     model.addAttribute("janken", janken);
@@ -48,9 +52,10 @@ public class JankenController {
   @PostMapping("tyo")
   public String tyoki(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("チョキ", CPU_hand());
     model.addAttribute("janken", janken);
@@ -60,9 +65,10 @@ public class JankenController {
   @PostMapping("pa")
   public String paa(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("パー", CPU_hand());
     model.addAttribute("janken", janken);

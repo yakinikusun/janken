@@ -34,10 +34,6 @@ public class JankenController {
 
   @PostMapping("gu")
   public String guu(Principal prin, ModelMap model) {
-    String loginUser = prin.getName();
-
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
 
     janken.buttle("グー", CPU_hand());
     model.addAttribute("janken", janken);

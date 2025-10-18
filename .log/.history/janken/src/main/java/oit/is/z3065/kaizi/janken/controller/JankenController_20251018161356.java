@@ -61,8 +61,8 @@ public class JankenController {
   public String paa(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("パー", CPU_hand());
     model.addAttribute("janken", janken);

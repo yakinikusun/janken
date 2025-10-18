@@ -4,13 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>SpringBoot Sample3-1</title>
-  <style>
-    .container {
-      display: flex;
-      gap: 10px;
-      /* フォーム間の間隔 */
-    }
-  </style>
 </head>
 
 <body>
@@ -26,17 +19,17 @@
     </ul>
   </div>
 
-  <h3>HI！<span sec:authentication="name"></span>
-  </h3>
-
-  <div class="container">
-    <form th:action="@{/janken/gu}" method="post">
+  <p>Hi!
+  <div sec:authentication="name"></div>
+  </p>
+  <div>
+    <form action="/janken/gu" method="post">
       <input type="submit" value="グー">
     </form>
-    <form th:action="@{/janken/tyo}" method="post">
+    <form action="/janken/tyo" method="post">
       <input type="submit" value="チョキ">
     </form>
-    <form th:action="@{/janken/pa}" method="post">
+    <form action="/janken/pa" method="post">
       <input type="submit" value="パー">
     </form>
   </div>
