@@ -1,14 +1,13 @@
 package oit.is.z3065.kaizi.janken.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Janken {
 
   String player;
   String computer;
   String result;
-
-  public Janken() {
-
-  }
 
   public void buttle(String player, String computer) {
     this.player = player;

@@ -1,5 +1,8 @@
 package oit.is.z3065.kaizi.janken.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Janken {
 
   String player;

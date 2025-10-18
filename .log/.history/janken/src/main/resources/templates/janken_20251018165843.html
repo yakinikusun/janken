@@ -4,13 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>SpringBoot Sample3-1</title>
-  <style>
-    .container {
-      display: flex;
-      gap: 10px;
-      /* フォーム間の間隔 */
-    }
-  </style>
 </head>
 
 <body>
@@ -26,7 +19,7 @@
     </ul>
   </div>
 
-  <h3>HI！<span sec:authentication="name"></span>
+  <h3>HI！<div sec:authentication="name"></div>
   </h3>
 
   <div class="container">

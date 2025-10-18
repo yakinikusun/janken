@@ -6,10 +6,6 @@ public class Janken {
   String computer;
   String result;
 
-  public Janken() {
-
-  }
-
   public void buttle(String player, String computer) {
     this.player = player;
     this.computer = computer;
