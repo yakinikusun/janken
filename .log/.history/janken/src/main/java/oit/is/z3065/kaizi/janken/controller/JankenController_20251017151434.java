@@ -25,9 +25,10 @@ public class JankenController {
   @GetMapping
   public String janken(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     return "janken.html";
   }
@@ -35,9 +36,10 @@ public class JankenController {
   @PostMapping("gu")
   public String guu(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("グー", CPU_hand());
     model.addAttribute("janken", janken);
@@ -48,9 +50,10 @@ public class JankenController {
   @PostMapping("tyo")
   public String tyoki(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("チョキ", CPU_hand());
     model.addAttribute("janken", janken);
@@ -60,9 +63,10 @@ public class JankenController {
   @PostMapping("pa")
   public String paa(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    Entry Room = new Entry();
 
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
+    Room.addUser(loginUser);
+    model.addAttribute("room", Room);
 
     janken.buttle("パー", CPU_hand());
     model.addAttribute("janken", janken);

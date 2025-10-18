@@ -1,12 +1,16 @@
 package oit.is.z3065.kaizi.janken.model;
 
+public class Entry {
+
+}
+package oit.is.inudaisuki.springboot_samples.model;
+
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class Entry {
-
+public class Room {
   ArrayList<String> users = new ArrayList<>();
   int roomNo = 1;
 
@@ -21,6 +25,16 @@ public class Entry {
     this.users.add(name);
   }
 
+  // 以降はフィールドのgetter/setter
+  // これらがないとThymeleafで値を取得できない
+  public int getRoomNo() {
+    return roomNo;
+  }
+
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
+  }
+
   public ArrayList<String> getUsers() {
     return users;
   }
@@ -28,4 +42,5 @@ public class Entry {
   public void setUsers(ArrayList<String> users) {
     this.users = users;
   }
+
 }

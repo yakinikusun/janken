@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
 public class JankenAuthConfiguration {
 
   @Bean
@@ -32,14 +30,14 @@ public class JankenAuthConfiguration {
     // ユーザ名，パスワード，ロールを指定してbuildする
     // このときパスワードはBCryptでハッシュ化されているため，{bcrypt}とつける
     // ハッシュ化せずに平文でパスワードを指定する場合は{noop}をつける
-    // user1/isdev,user2/isdev
+    // user1/p@ss,user2/p@ss,admin/p@ss
 
     UserDetails user1 = User.withUsername("user1")
-        .password("{bcrypt}$2y$05$LK/4oGk9obtNAa64ACXL5O.ED95h/Okw75Z0A3JwlwAWOSHqIh3Ye").roles("USER").build();
+        .password("{bcrypt}$2y$05$FGTdQoK0BY/8WibMCpfiS.Seqf72RwpDxRzJoeNyBh5D69T02eO/W").roles("USER").build();
     UserDetails user2 = User.withUsername("user2")
-        .password("{bcrypt}$2y$05$LK/4oGk9obtNAa64ACXL5O.ED95h/Okw75Z0A3JwlwAWOSHqIh3Ye").roles("USER").build();
+        .password("{bcrypt}$2y$05$FGTdQoK0BY/8WibMCpfiS.Seqf72RwpDxRzJoeNyBh5D69T02eO/W").roles("USER").build();
 
     // 生成したユーザをImMemoryUserDetailsManagerに渡す（いくつでも良い）
-    return new InMemoryUserDetailsManager(user1, user2);
+    return new InMemoryUserDetailsManager(user1, user2, admin);
   }
 }

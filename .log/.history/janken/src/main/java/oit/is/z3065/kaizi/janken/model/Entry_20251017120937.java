@@ -2,8 +2,6 @@ package oit.is.z3065.kaizi.janken.model;
 
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Component;
-
 @Component
 public class Entry {
 
@@ -19,6 +17,16 @@ public class Entry {
     }
     // 同名のユーザが居なかった場合はusersにnameを追加する
     this.users.add(name);
+  }
+
+  // 以降はフィールドのgetter/setter
+  // これらがないとThymeleafで値を取得できない
+  public int getRoomNo() {
+    return roomNo;
+  }
+
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
   }
 
   public ArrayList<String> getUsers() {

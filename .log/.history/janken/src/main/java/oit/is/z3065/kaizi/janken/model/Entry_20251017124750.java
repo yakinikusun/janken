@@ -21,6 +21,14 @@ public class Entry {
     this.users.add(name);
   }
 
+  public int getRoomNo() {
+    return roomNo;
+  }
+
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
+  }
+
   public ArrayList<String> getUsers() {
     return users;
   }

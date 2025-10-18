@@ -21,6 +21,16 @@ public class Entry {
     this.users.add(name);
   }
 
+  // 以降はフィールドのgetter/setter
+  // これらがないとThymeleafで値を取得できない
+  public int getRoomNo() {
+    return roomNo;
+  }
+
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
+  }
+
   public ArrayList<String> getUsers() {
     return users;
   }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>SpringBoot Sample3-1</title>
+</head>
+
+<body>
+  <div><a href="/logout">ログアウト</a></div>
+  <h1>JANKEN GAME!</h1>
+  <p>・エントリー</p>
+
+
+  <h3>Hi! <div sec:authentication="name"></div></h3>
+  <div>
+    <form action="/janken/gu" method="post">
+      <input type="submit" value="グー">
+    </form>
+    <form action="/janken/tyo" method="post">
+      <input type="submit" value="チョキ">
+    </form>
+    <form action="/janken/pa" method="post">
+      <input type="submit" value="パー">
+    </form>
+  </div>
+  <div th:if="${janken}">
+    あなたの手：[[${janken.player}]]<br />
+    相手の手：[[${janken.computer}]]<br />
+    結果：[[${janken.result}]]<br />
+  </div>
+
+
+</body>
