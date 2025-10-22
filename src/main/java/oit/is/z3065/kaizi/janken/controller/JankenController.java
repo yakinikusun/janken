@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import oit.is.z3065.kaizi.janken.model.Janken;
-import oit.is.z3065.kaizi.janken.model.Entry;
+import oit.is.z3065.kaizi.janken.model.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Random;
 
 @Controller
@@ -20,14 +20,19 @@ public class JankenController {
   @Autowired
   private Entry entry;
 
+  @Autowired
+  UserMapper userMapper;
+
   Janken janken = new Janken();
 
   @GetMapping
   public String janken(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
-
     entry.addUser(loginUser);
     model.addAttribute("room", entry);
+
+    ArrayList<User> Users = userMapper.selectAllUser();
+    model.addAttribute("users", Users);
 
     return "janken.html";
   }
