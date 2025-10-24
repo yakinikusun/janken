@@ -19,17 +19,27 @@
 
   <h3><span sec:authentication="name"></span> V.S.<span th:text="${enemy}"></span></h3>
 
-
-
-
-
-
  <h1>試合結果</h1>
 
+  <div class="container">
+    <form th:action="@{/janken/fight(id=${ID},p1hand=Gu)}" method="post">
+      <input type="submit" value="グー">
+    </form>
+    <form th:action="@{/janken/fight(id=${ID},p1hand=Choki)}" method="post">
+      <input type="submit" value="チョキ">
+    </form>
+    <form th:action="@{/janken/fight(id=${ID},p1hand=Pa)}" method="post">
+      <input type="submit" value="パー">
+    </form>
+  </div>
 
+  <div th:if="${janken}">
+    あなたの手：[[${janken.player}]]<br />
+    相手の手：[[${janken.computer}]]<br />
+    結果：[[${janken.result}]]<br />
+  </div>
 
-
-
+  <br>
   <a href="/janken">もどる</a>
 
 

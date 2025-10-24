@@ -20,7 +20,6 @@ import java.util.Random;
 @RequestMapping("/janken")
 public class JankenController {
 
-
   @Autowired
   private Entry entry;
 
@@ -30,52 +29,62 @@ public class JankenController {
   @Autowired
   UserMapper userMapper;
 
-
   Janken janken = new Janken();
 
   @GetMapping
   public String janken(Principal prin, ModelMap model) {
     /*
-    String loginUser = prin.getName();
-    entry.addUser(loginUser);
-    model.addAttribute("room", entry);
-    */
+     * String loginUser = prin.getName();
+     * entry.addUser(loginUser);
+     * model.addAttribute("room", entry);
+     */
 
     ArrayList<User> Users = userMapper.selectAllUser();
     model.addAttribute("users", Users);
-    
-    
+
     ArrayList<Match> Matches = matchMapper.selectAllMatch();
     model.addAttribute("matches", Matches);
-  
 
     return "janken.html";
   }
 
   @GetMapping("/match")
   public String match(@RequestParam Integer id, ModelMap model) {
-    
+
     String enemy = userMapper.selectById(id);
     model.addAttribute("enemy", enemy);
+    model.addAttribute("ID", id);
 
     return "match.html";
   }
 
-  @PostMapping("/match")
-  public String poyon(@RequestParam Integer id,@RequestParam String p1hand, ModelMap model) {
-    String P1;
+  @PostMapping("/fight")
+  public String poyon(@RequestParam Integer id, @RequestParam String p1hand, Principal prin, ModelMap model) {
 
-    if (p1hand == "pa") {
-      P1 = "パー";
-    } else if (p1hand == "cho") {
-      P1 = "チョキ";
+    Match match = new Match();
+    String p2hand = CPU_hand();
+    if (p1hand == "Pa") {
+      janken.buttle("パー", p2hand);
+    } else if (p1hand == "Choki") {
+      janken.buttle("チョキ", p2hand);
     } else {
-      P1 = "グー";
+      janken.buttle("グー", p2hand);
     }
-    janken.buttle(P1, CPU_hand());
+
+    match.setUser1(userMapper.selectByName(prin.getName()));
+    match.setUser2(id);
+    match.setUser1Hand(p1hand);
+    match.setUser2Hand(conv_hand(p2hand));
+    
+    String enemy = userMapper.selectById(id);
+    model.addAttribute("enemy", enemy);
+    model.addAttribute("ID", id);
+
+    matchMapper.insertMatch(match);
     model.addAttribute("janken", janken);
 
-    return "janken.html";
+
+    return "match.html";
   }
 
   public String CPU_hand() {
@@ -87,5 +96,14 @@ public class JankenController {
       return "チョキ";
     }
     return "パー";
+  }
+
+  public String conv_hand(String hand) {
+    if (hand.equals("パー")) {
+      return "Pa";
+    } else if (hand.equals("チョキ")) {
+      return "Choki";
+    }
+    return "Gu";
   }
 }
