@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +19,8 @@ import java.util.Random;
 @RequestMapping("/janken")
 public class JankenController {
 
-  @Autowired
-  private Entry entry;
+  //@Autowired
+  //private Entry entry;
 
   @Autowired
   MatchMapper matchMapper;
@@ -59,7 +58,8 @@ public class JankenController {
   }
 
   @PostMapping("/fight")
-  public String poyon(@RequestParam Integer id, @RequestParam String p1hand, Principal prin, ModelMap model) {
+  @Transactional
+  public String fight(@RequestParam Integer id, @RequestParam String p1hand, Principal prin, ModelMap model) {
 
     Match match = new Match();
     String p2hand = CPU_hand();
@@ -75,6 +75,13 @@ public class JankenController {
     match.setUser2(id);
     match.setUser1Hand(p1hand);
     match.setUser2Hand(conv_hand(p2hand));
+    if (janken.getResultCode() == 1) {
+      match.setResult(userMapper.selectByName(prin.getName()));
+    } else if (janken.getResultCode() == 2) {
+      match.setResult(id);
+    } else {
+      match.setResult(0);
+    }
     
     String enemy = userMapper.selectById(id);
     model.addAttribute("enemy", enemy);

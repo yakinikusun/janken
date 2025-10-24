@@ -6,6 +6,7 @@ public class Match {
     int user2;
     String user1Hand;
     String user2Hand;
+    int result;
 
     public int getId() {
         return id;
@@ -47,4 +48,11 @@ public class Match {
         this.user2Hand = user2Hand;
     }
 
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
 }
