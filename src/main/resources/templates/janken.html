@@ -20,7 +20,7 @@
 
   <div th:if="${users}">
     <ul>
-      <li th:each="user : ${users}"><a th:href="@{/janken/match(id=${user.id})}">[[${user.name}]]</a></li>
+      <li th:each="user : ${users}"><a th:href="@{/match(id=${user.id})}">[[${user.name}]]</a></li>
     </ul>
   </div>
 
