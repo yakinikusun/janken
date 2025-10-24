@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>SpringBoot Sample3-1</title>
+  <style>
+    .container {
+      display: flex;
+      gap: 10px;
+      /* フォーム間の間隔 */
+    }
+  </style>
+</head>
+
+<body>
+  <div><a href="/logout">ログアウト</a></div>
+  <h1>Match</h1>
+
+  <h3><span sec:authentication="name"></span> V.S.<span th:text="${enemy}"></span></h3>
+
+
+
+
+
+
+ <h1>試合結果</h1>
+
+
+
+
+
+  <a href="/janken">もどる</a>
+
+
+</body>
