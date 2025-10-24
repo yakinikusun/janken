@@ -4,47 +4,52 @@
 <head>
   <meta charset="utf-8">
   <title>SpringBoot Sample3-1</title>
-  <style>
-    .container {
-      display: flex;
-      gap: 10px;
-      /* フォーム間の間隔 */
-    }
-  </style>
 </head>
 
 <body>
   <div><a href="/logout">ログアウト</a></div>
   <h1>JANKEN GAME!</h1>
-  <p>・エントリー</p>
 
-  <div th:if="${room}">
+
+  <h3>HI！<span sec:authentication="name"></span></h3>
+
+  <h1>・エントリー</h1>
+
+
+
+
+  <div th:if="${users}">
     <ul>
-      <!--eachは所謂for each．この場合roomオブジェクトのusersフィールドにあるすべてのデータを一通り表示する
-          thが指定されているので[]が不要になる-->
-      <li th:each="user : ${room.users}">[[${user}]]</li>
+      <li th:each="user : ${users}"><a th:href="@{/janken/match(id=${user.id})}">[[${user.name}]]</a></li>
     </ul>
   </div>
 
-  <h3>HI！<span sec:authentication="name"></span>
-  </h3>
 
-  <div class="container">
-    <form th:action="@{/janken/gu}" method="post">
-      <input type="submit" value="グー">
-    </form>
-    <form th:action="@{/janken/tyo}" method="post">
-      <input type="submit" value="チョキ">
-    </form>
-    <form th:action="@{/janken/pa}" method="post">
-      <input type="submit" value="パー">
-    </form>
+  <h1>試合結果</h1>
+
+
+  <p th:if="${matches}">
+  <div th:each="match,stat:${matches}">
+    <tr>
+      <td>ID:[[${match.id}]]</td>
+      <td>user1:[[${match.user1}]]</td>
+      <td>user2:[[${match.user2}]]</td>
+      <td>user1の手:[[${match.user1Hand}]]</td>
+      <td>user2の手:[[${match.user2Hand}]]</td>
+      <td>
+        <span th:switch="${match.result}">
+          <span th:case="0">あいこ</span>
+          <span th:case="${match.user1}">user1の勝ち</span>
+          <span th:case="${match.user2}">user2の勝ち</span>
+        </span>
+      </td>
+    </tr>
   </div>
-  <div th:if="${janken}">
-    あなたの手：[[${janken.player}]]<br />
-    相手の手：[[${janken.computer}]]<br />
-    結果：[[${janken.result}]]<br />
-  </div>
+  </p>
+
+
 
 
 </body>
+
+</html>
