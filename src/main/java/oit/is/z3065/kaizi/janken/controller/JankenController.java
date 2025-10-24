@@ -38,6 +38,10 @@ public class JankenController {
      * model.addAttribute("room", entry);
      */
 
+    if (userMapper.selectByName(prin.getName()) == null) {
+      userMapper.insertUser(prin.getName());
+    }
+
     ArrayList<User> Users = userMapper.selectAllUser();
     model.addAttribute("users", Users);
 
