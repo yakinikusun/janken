@@ -2,6 +2,7 @@ package oit.is.z3065.kaizi.janken.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,22 +18,34 @@ import java.util.Random;
 @RequestMapping("/janken")
 public class JankenController {
 
+
   @Autowired
   private Entry entry;
 
   @Autowired
+  MatchMapper matchMapper;
+
+  @Autowired
   UserMapper userMapper;
+
 
   Janken janken = new Janken();
 
   @GetMapping
+  @Transactional
   public String janken(Principal prin, ModelMap model) {
+    
     String loginUser = prin.getName();
     entry.addUser(loginUser);
     model.addAttribute("room", entry);
-
+    
     ArrayList<User> Users = userMapper.selectAllUser();
     model.addAttribute("users", Users);
+    
+    
+    ArrayList<Match> Matches = matchMapper.selectAllMatch();
+    model.addAttribute("matches", Matches);
+  
 
     return "janken.html";
   }
