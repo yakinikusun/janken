@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/janken")
 public class JankenController {
 
   //@Autowired
@@ -30,7 +29,7 @@ public class JankenController {
 
   Janken janken = new Janken();
 
-  @GetMapping
+  @GetMapping("/janken")
   public String janken(Principal prin, ModelMap model) {
     /*
      * String loginUser = prin.getName();
