@@ -1,7 +1,10 @@
 package oit.is.z3065.kaizi.janken.model;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 @Mapper
@@ -11,4 +14,7 @@ public interface MatchInfoMapper {
 
     @Update("UPDATE MATCHINFO SET isActive = #{isActive} WHERE id = #{id};")
     void setActivebyId(int id, boolean isActive);
+
+    @Select("SELECT * FROM MATCHINFO WHERE isActive = true;")
+    ArrayList<MatchInfo> selectActives();
 }
