@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>SpringBoot Sample3-1</title>
+</head>
+
+<body>
+  <div><a href="/logout">ログアウト</a></div>
+  <h1>相手の手を待ってます</h1>
+
+
+  <h3>HI！<span sec:authentication="name"></span></h3>
+
+  <h1>結果</h1>
+
+
+
+</body>
+
+</html>

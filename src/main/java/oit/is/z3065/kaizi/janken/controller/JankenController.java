@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.z3065.kaizi.janken.model.*;
@@ -18,14 +17,17 @@ import java.util.Random;
 @Controller
 public class JankenController {
 
-  //@Autowired
-  //private Entry entry;
+  // @Autowired
+  // private Entry entry;
 
   @Autowired
   MatchMapper matchMapper;
 
   @Autowired
   UserMapper userMapper;
+
+  @Autowired
+  MatchInfoMapper matchinfoMapper;
 
   Janken janken = new Janken();
 
@@ -64,37 +66,50 @@ public class JankenController {
   @Transactional
   public String fight(@RequestParam Integer id, @RequestParam String p1hand, Principal prin, ModelMap model) {
 
-    Match match = new Match();
-    String p2hand = CPU_hand();
-    if (p1hand == "Pa") {
-      janken.buttle("パー", p2hand);
-    } else if (p1hand == "Choki") {
-      janken.buttle("チョキ", p2hand);
+    if (userMapper.selectById(id) == "CPU") {
+      Match match = new Match();
+      String p2hand = CPU_hand();
+
+      if (p1hand == "Pa") {
+        janken.buttle("パー", p2hand);
+      } else if (p1hand == "Choki") {
+        janken.buttle("チョキ", p2hand);
+      } else {
+        janken.buttle("グー", p2hand);
+      }
+      match.setUser1(userMapper.selectByName(prin.getName()));
+      match.setUser2(id);
+      match.setUser1Hand(p1hand);
+      match.setUser2Hand(conv_hand(p2hand));
+      if (janken.getResultCode() == 1) {
+        match.setResult(userMapper.selectByName(prin.getName()));
+      } else if (janken.getResultCode() == 2) {
+        match.setResult(id);
+      } else {
+        match.setResult(0);
+      }
+
+      String enemy = userMapper.selectById(id);
+      model.addAttribute("enemy", enemy);
+      model.addAttribute("ID", id);
+
+      matchMapper.insertMatch(match);
+      model.addAttribute("janken", janken);
+
     } else {
-      janken.buttle("グー", p2hand);
+      MatchInfo matchinfo = new MatchInfo();
+      matchinfo.setUser1(userMapper.selectByName(prin.getName()));
+      matchinfo.setUser2(id);
+      matchinfo.setUser1Hand(p1hand);
+      matchinfo.setActive(true);
+      matchinfoMapper.insertMatchInfo(matchinfo);
+
+      model.addAttribute("ID", id);
+      model.addAttribute("matchinfo", matchinfo);
     }
 
-    match.setUser1(userMapper.selectByName(prin.getName()));
-    match.setUser2(id);
-    match.setUser1Hand(p1hand);
-    match.setUser2Hand(conv_hand(p2hand));
-    if (janken.getResultCode() == 1) {
-      match.setResult(userMapper.selectByName(prin.getName()));
-    } else if (janken.getResultCode() == 2) {
-      match.setResult(id);
-    } else {
-      match.setResult(0);
-    }
-    
-    String enemy = userMapper.selectById(id);
-    model.addAttribute("enemy", enemy);
-    model.addAttribute("ID", id);
+    return "wait.html";
 
-    matchMapper.insertMatch(match);
-    model.addAttribute("janken", janken);
-
-
-    return "match.html";
   }
 
   public String CPU_hand() {
