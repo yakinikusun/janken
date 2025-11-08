@@ -167,7 +167,7 @@ public class JankenController {
     return sseEmitter;
   }
 
-  @GetMapping("/allmatch")
+  @GetMapping("/allmatches")
   public SseEmitter asyncAllMatch() {
     final SseEmitter sseEmitter = new SseEmitter();
     asyncKekka.asyncShowMatch(sseEmitter);
