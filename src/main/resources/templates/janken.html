@@ -4,6 +4,42 @@
 <head>
   <meta charset="utf-8">
   <title>SpringBoot Sample3-1</title>
+  <script>
+    window.onload = function () {
+      const sse = new EventSource('/allmatches');
+      sse.onmessage = function (event) {
+        console.log("sse.onmessage")
+        console.log(event.data);
+
+        const matches = JSON.parse(event.data);
+        const resultDiv1 = document.getElementById('result');
+
+        let resultText = '';
+        for (let i = 0; i < matches.length; i++) {
+          let result = '';
+          if (matches[i].result === 0) {
+            result = 'あいこ';
+          } else if (matches[i].result === matches[i].user1) {
+            result = 'user1の勝ち';
+          } else if (matches[i].result === matches[i].user2) {
+            result = 'user2の勝ち';
+          }
+          resultText += `
+                    <tr>
+                        <td>ID: ${matches[i].id}</td>
+                        <td>user1: ${matches[i].user1}</td>
+                        <td>user2: ${matches[i].user2}</td>
+                        <td>user1の手: ${matches[i].user1Hand}</td>
+                        <td>user2の手: ${matches[i].user2Hand}</td>
+                        <td>${result}</td>
+                    </tr>
+                `;
+        }
+        resultDiv1.innerHTML = resultText;
+
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -25,30 +61,39 @@
   </div>
 
 
-  <h1>試合結果</h1>
+  <h1>アクティブな試合</h1>
 
-
-  <p th:if="${matches}">
-  <div th:each="match,stat:${matches}">
-    <tr>
+  <div th:if="${matchinfos}">
+    <tr th:each="match : ${matchinfos}">
       <td>ID:[[${match.id}]]</td>
       <td>user1:[[${match.user1}]]</td>
       <td>user2:[[${match.user2}]]</td>
-      <td>user1の手:[[${match.user1Hand}]]</td>
-      <td>user2の手:[[${match.user2Hand}]]</td>
-      <td>
-        <span th:switch="${match.result}">
-          <span th:case="0">あいこ</span>
-          <span th:case="${match.user1}">user1の勝ち</span>
-          <span th:case="${match.user2}">user2の勝ち</span>
-        </span>
-      </td>
+      <td>isActive:[[${match.isActive}]]</td>
     </tr>
   </div>
-  </p>
 
+  <h1>試合結果</h1>
 
-
+  <div th:if="${matches}">
+    <table>
+      <tbody id ="result">
+        <tr th:each="match : ${matches}">
+          <td>ID:[[${match.id}]]</td>
+          <td>user1:[[${match.user1}]]</td>
+          <td>user2:[[${match.user2}]]</td>
+          <td>user1の手:[[${match.user1Hand}]]</td>
+          <td>user2の手:[[${match.user2Hand}]]</td>
+          <td>
+            <span th:switch="${match.result}">
+              <span th:case="0">あいこ</span>
+              <span th:case="${match.user1}">user1の勝ち</span>
+              <span th:case="${match.user2}">user2の勝ち</span>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </body>
 

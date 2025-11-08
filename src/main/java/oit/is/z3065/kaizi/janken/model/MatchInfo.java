@@ -1,26 +1,24 @@
 package oit.is.z3065.kaizi.janken.model;
 
-public class Match {
+public class MatchInfo {
     int id;
     int user1;
     int user2;
     String user1Hand;
-    String user2Hand;
-    int result;
     boolean isActive;
 
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public int getUser1() {
         return user1;
     }
-    
+
     public void setUser1(int user1) {
         this.user1 = user1;
     }
@@ -41,25 +39,10 @@ public class Match {
         this.user1Hand = user1Hand;
     }
 
-    public String getUser2Hand() {
-        return user2Hand;
-    }
-
-    public void setUser2Hand(String user2Hand) {
-        this.user2Hand = user2Hand;
-    }
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
-
     public boolean isActive() {
         return isActive;
     }
+
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
