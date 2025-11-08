@@ -162,14 +162,14 @@ public class JankenController {
   // 非同期処理のメソッド
   @GetMapping("/wait")
   public SseEmitter asyncMethod(Principal prin) {
-    final SseEmitter sseEmitter = new SseEmitter();
+    final SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
     asyncKekka.asyncShowMatchinfo(sseEmitter, userMapper.selectByName(prin.getName()));
     return sseEmitter;
   }
 
   @GetMapping("/allmatches")
   public SseEmitter asyncAllMatch() {
-    final SseEmitter sseEmitter = new SseEmitter();
+    final SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
     asyncKekka.asyncShowMatch(sseEmitter);
     return sseEmitter;
   }
