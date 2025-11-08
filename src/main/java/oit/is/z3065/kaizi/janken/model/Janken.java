@@ -4,8 +4,7 @@ public class Janken {
 
   String player;
   String computer;
-  String result;
-  int resultCode;
+  int result;
 
   public Janken() {
 
@@ -15,15 +14,12 @@ public class Janken {
     this.player = player;
     this.computer = computer;
     if (player.equals(computer)) {
-      this.result = "あいこ";
-      this.resultCode = 0;
-    } else if ((player.equals("グー") && computer.equals("チョキ")) || (player.equals("チョキ") && computer.equals("パー"))
-        || (player.equals("パー") && computer.equals("グー"))) {
-      this.result = "あなたの勝ち";
-      this.resultCode = 1;
+      this.result = 0;
+    } else if ((player.equals("Gu") && computer.equals("Choki")) || (player.equals("Choki") && computer.equals("Pa"))
+        || (player.equals("Pa") && computer.equals("Gu"))) {
+      this.result = 1;
     } else {
-      this.result = "あなたの負け";
-      this.resultCode = 2;
+      this.result = 2;
     }
   }
 
@@ -35,11 +31,8 @@ public class Janken {
     return computer;
   }
 
-  public String getResult() {
+  public int getResult() {
     return result;
   }
 
-  public int getResultCode() {
-    return resultCode;
-  }
 }

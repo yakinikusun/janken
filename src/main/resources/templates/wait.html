@@ -2,20 +2,78 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 
 <head>
-  <meta charset="utf-8">
-  <title>SpringBoot Sample3-1</title>
+    <meta charset="utf-8">
+    <title>SpringBoot Sample3-1</title>
+    <script>
+        window.onload = function () {
+            const sse = new EventSource('/wait');
+            sse.onmessage = function (event) {
+                console.log("sse.onmessage")
+                console.log(event.data);
+
+                const match = JSON.parse(event.data);
+                const resultDiv = document.getElementById('result');
+
+                let resultText = '';
+                if (match.result === 0) {
+                    resultText = 'あいこ';
+                } else if (match.result === match.user1) {
+                    resultText = 'user1の勝ち';
+                } else if (match.result === match.user2) {
+                    resultText = 'user2の勝ち';
+                }
+
+                resultDiv.innerHTML = `
+                    <div>
+                    <tr>
+                        <td>ID: ${match.id}</td>
+                        <td>user1: ${match.user1}</td>
+                        <td>user2: ${match.user2}</td>
+                        <td>user1の手: ${match.user1Hand}</td>
+                        <td>user2の手: ${match.user2Hand}</td>
+                        <td>${resultText}</td>
+                    </tr>
+                    </div>
+                    <a href="/janken">もどる</a>
+                `;
+            }
+        }
+    </script>
 </head>
 
 <body>
-  <div><a href="/logout">ログアウト</a></div>
-  <h1>相手の手を待ってます</h1>
+    <div><a href="/logout">ログアウト</a></div>
+    <h1>相手の手を待ってます</h1>
 
+    <h3>HI！<span sec:authentication="name"></span></h3>
 
-  <h3>HI！<span sec:authentication="name"></span></h3>
+    <h1>結果</h1>
 
-  <h1>結果</h1>
+    <!-- SSEで受信したデータを表示する領域 -->
+    <div id="result">
 
+    </div>
 
+    <!-- 元のThymeleafテンプレート -->
+    <p th:if="${matches}">
+    <div th:each="match,stat:${matches}">
+        <tr>
+            <td>ID:[[${match.id}]]</td>
+            <td>user1:[[${match.user1}]]</td>
+            <td>user2:[[${match.user2}]]</td>
+            <td>user1の手:[[${match.user1Hand}]]</td>
+            <td>user2の手:[[${match.user2Hand}]]</td>
+            <td>
+                <span th:switch="${match.result}">
+                    <span th:case="0">あいこ</span>
+                    <span th:case="${match.user1}">user1の勝ち</span>
+                    <span th:case="${match.user2}">user2の勝ち</span>
+                </span>
+            </td>
+        </tr>
+    </div>
+    <a th:if="${matches}" href="/janken">もどる</a>
+    </p>
 
 </body>
 
